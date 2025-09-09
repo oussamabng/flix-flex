@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 👇 Force all text to be white by default */
+@layer base {
+  * {
+    @apply bg-background text-white;
+  }
+  @layer base {
+    html,
+    body {
+      @apply bg-background text-white;
+    }
+  }
+}

@@ -1,0 +1,37 @@
+import { useEffect, useState } from 'react';
+import { tmdbClient } from '@/api/tmdb-client';
+import { getApiError } from '@/utils//get-api-error';
+
+export function useTMDbDetails(mediaType: 'movie' | 'tv', id: string | number) {
+  const [data, setData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function fetchDetails() {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const json = await tmdbClient.get<any>(`${mediaType}/${id}`, {
+          append_to_response: 'videos,credits',
+        });
+
+        if (isMounted) setData(json);
+      } catch (err) {
+        if (isMounted) setError(getApiError(err));
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    }
+
+    fetchDetails();
+    return () => {
+      isMounted = false;
+    };
+  }, [mediaType, id]);
+
+  return { data, loading, error };
+}
