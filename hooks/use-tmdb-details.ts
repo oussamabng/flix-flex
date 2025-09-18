@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { getApiError } from '@/utils//get-api-error';
+import { getApiError } from '@/utils/get-api-error';
 import { tmdb } from '@/api/tmdb';
+import { TMDbDetails } from '@/types/media';
 
 export function useTMDbDetails(mediaType: 'movie' | 'tv', id: string | number) {
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<TMDbDetails | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

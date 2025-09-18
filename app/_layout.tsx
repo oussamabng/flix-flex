@@ -27,6 +27,7 @@ export default function RootLayout() {
             headerTitleStyle: { fontWeight: 'bold' },
             headerBackButtonDisplayMode: 'minimal',
             animation: 'none',
+            contentStyle: { backgroundColor: '#121212' },
           }}>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="(auth)" options={{ headerShown: false }} />

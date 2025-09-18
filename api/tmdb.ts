@@ -11,11 +11,8 @@ export const tmdb = {
     tmdbClient.get<any>(`${type}/${id}`, {
       append_to_response: 'videos,credits',
     }),
-  search: (type: 'movie' | 'tv', query: string, page: number = 1) =>
-    tmdbClient.get<TMDbListResponse<TMDbMovie | TMDbTV>>(`search/${type}`, {
-      query,
-      page,
-    }),
+  search: (type: 'movie' | 'tv', query: string, page: number = 1, signal?: AbortSignal) =>
+    tmdbClient.get<TMDbListResponse<TMDbMovie | TMDbTV>>(`search/${type}`, { query, page }, signal),
   getList: (type: 'movie' | 'tv', category: string, page = 1) =>
     tmdbClient.get<TMDbListResponse<TMDbMovie | TMDbTV>>(`${type}/${category}`, { page }),
 };

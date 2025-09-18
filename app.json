@@ -6,11 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./assets/flix-flex.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#a855f7"
-    },
+    "backgroundColor": "#121212",
     "assetBundlePatterns": ["**/*"],
     "web": {
       "bundler": "metro",
@@ -27,14 +23,34 @@
         "usesNonExemptEncryption": false
       },
       "supportsTablet": true,
-      "bundleIdentifier": "com.nroussama.flixflex"
+      "bundleIdentifier": "com.nroussama.flixflex",
+      "splash": {
+        "image": "./assets/flix-flex.png",
+        "resizeMode": "cover",
+        "backgroundColor": "#121212",
+        "dark": {
+          "image": "./assets/flix-flex.png",
+          "resizeMode": "cover",
+          "backgroundColor": "#121212"
+        }
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon/foreground.png",
         "backgroundImage": "./assets/adaptive-icon/background.png"
       },
-      "package": "com.nroussama.flixflex"
+      "package": "com.nroussama.flixflex",
+      "splash": {
+        "image": "./assets/flix-flex.png",
+        "resizeMode": "cover",
+        "backgroundColor": "#121212",
+        "dark": {
+          "image": "./assets/flix-flex.png",
+          "resizeMode": "cover",
+          "backgroundColor": "#121212"
+        }
+      }
     }
   }
 }

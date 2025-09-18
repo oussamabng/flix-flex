@@ -25,6 +25,9 @@ export function GenreProvider({ children }: { children: React.ReactNode }) {
         setMovieGenres(Object.fromEntries(movies.genres.map((g) => [g.id, g.name])));
         setTvGenres(Object.fromEntries(tv.genres.map((g) => [g.id, g.name])));
       })
+      .catch((err) => {
+        console.error('Failed to load genres', err);
+      })
       .finally(() => setLoading(false));
   }, []);
 

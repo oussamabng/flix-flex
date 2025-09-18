@@ -22,7 +22,7 @@ export function useTMDbSearch(mediaType: 'movie' | 'tv', query: string) {
         setLoading(true);
         setError(null);
 
-        const json = await tmdb.search(mediaType, query, 1);
+        const json = await tmdb.search(mediaType, query, 1, controller.signal);
 
         setData(mapToMediaItems(json.results, mediaType === 'tv'));
       } catch (err: any) {

@@ -57,12 +57,10 @@ export const Header = ({ onSearch }: HeaderProps) => {
   return (
     <View className="rounded-b-2xl bg-[#121212] px-4 pb-3 pt-4">
       <View className="flex-row items-center justify-between">
-        {/* Logo */}
         <Animated.Text style={logoStyle} className="text-3xl font-bold text-white">
           FlixFlex
         </Animated.Text>
 
-        {/* Icons on the right */}
         <View className="flex-row items-center gap-6">
           <TouchableOpacity onPress={openSearch}>
             <Feather name="search" size={22} color="white" />
@@ -73,7 +71,6 @@ export const Header = ({ onSearch }: HeaderProps) => {
         </View>
       </View>
 
-      {/* Search input with X button */}
       <Animated.View style={[inputStyle]}>
         <SimpleInput
           placeholder="Search..."
