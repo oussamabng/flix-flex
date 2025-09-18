@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { MediaItem, TMDbListResponse, TMDbMovie, TMDbTV } from '@/types/media';
-import { tmdbClient } from '@/api/tmdb-client';
+import { MediaItem } from '@/types/media';
 import { mapToMediaItems } from '@/utils/tmdb.mapper';
 import { getApiError } from '@/utils/get-api-error';
+import { tmdb } from '@/api/tmdb';
 
 interface PaginatedResult {
   data: MediaItem[];
@@ -30,10 +30,7 @@ export function useTMDb(
       setLoading(true);
       setError(null);
 
-      const json = await tmdbClient.get<TMDbListResponse<TMDbMovie | TMDbTV>>(
-        `${type}/${category}`,
-        { page: pageNum }
-      );
+      const json = await tmdb.getList(type, category, pageNum);
 
       const mapped = mapToMediaItems(json.results.slice(0, perPage), type === 'tv');
       setHasMore(json.page < json.total_pages);

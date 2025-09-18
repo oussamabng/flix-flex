@@ -16,4 +16,6 @@ export const tmdb = {
       query,
       page,
     }),
+  getList: (type: 'movie' | 'tv', category: string, page = 1) =>
+    tmdbClient.get<TMDbListResponse<TMDbMovie | TMDbTV>>(`${type}/${category}`, { page }),
 };

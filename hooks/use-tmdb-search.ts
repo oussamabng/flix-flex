@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { MediaItem, TMDbListResponse, TMDbMovie, TMDbTV } from '@/types/media';
-import { tmdbClient } from '@/api/tmdb-client';
+import { MediaItem } from '@/types/media';
 import { mapToMediaItems } from '@/utils/tmdb.mapper';
 import { getApiError } from '@/utils/get-api-error';
+import { tmdb } from '@/api/tmdb';
 
 export function useTMDbSearch(mediaType: 'movie' | 'tv', query: string) {
   const [data, setData] = useState<MediaItem[]>([]);
@@ -22,10 +22,7 @@ export function useTMDbSearch(mediaType: 'movie' | 'tv', query: string) {
         setLoading(true);
         setError(null);
 
-        const json = await tmdbClient.get<TMDbListResponse<TMDbMovie | TMDbTV>>(
-          `search/${mediaType}`,
-          { query: encodeURIComponent(query) }
-        );
+        const json = await tmdb.search(mediaType, query, 1);
 
         setData(mapToMediaItems(json.results, mediaType === 'tv'));
       } catch (err: any) {

@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { tmdbClient } from '@/api/tmdb-client';
+import { tmdb } from '@/api/tmdb';
 
 type GenreMap = Record<number, string>;
 interface GenreContextValue {
@@ -20,10 +20,7 @@ export function GenreProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Promise.all([
-      tmdbClient.get<{ genres: { id: number; name: string }[] }>('genre/movie/list'),
-      tmdbClient.get<{ genres: { id: number; name: string }[] }>('genre/tv/list'),
-    ])
+    Promise.all([tmdb.getGenres('movie'), tmdb.getGenres('tv')])
       .then(([movies, tv]) => {
         setMovieGenres(Object.fromEntries(movies.genres.map((g) => [g.id, g.name])));
         setTvGenres(Object.fromEntries(tv.genres.map((g) => [g.id, g.name])));
