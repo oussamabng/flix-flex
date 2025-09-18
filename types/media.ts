@@ -51,6 +51,46 @@ export interface TMDbVideo {
   type: string;
 }
 
-export type TMDbDetails =
-  | (TMDbMovie & { videos?: { results: TMDbVideo[] }; credits?: TMDbCredits })
-  | (TMDbTV & { videos?: { results: TMDbVideo[] }; credits?: TMDbCredits });
+export interface TMDbSpokenLanguage {
+  english_name: string;
+  iso_639_1: string;
+  name: string;
+}
+
+export interface TMDbProductionCompany {
+  id: number;
+  name: string;
+  logo_path: string | null;
+  origin_country: string;
+}
+
+export interface TMDbMovieDetails extends TMDbMovie {
+  media_type: 'movie';
+  release_date: string;
+  runtime: number;
+  tagline?: string;
+  status?: string;
+  budget?: number;
+  revenue?: number;
+  spoken_languages: TMDbSpokenLanguage[];
+  production_companies: TMDbProductionCompany[];
+  genres: TMDbGenre[];
+  videos?: { results: TMDbVideo[] };
+  credits?: TMDbCredits;
+}
+
+export interface TMDbTVDetails extends TMDbTV {
+  media_type: 'tv';
+  name: string;
+  first_air_date: string;
+  episode_run_time: number[];
+  tagline?: string;
+  status?: string;
+  spoken_languages: TMDbSpokenLanguage[];
+  production_companies: TMDbProductionCompany[];
+  genres: TMDbGenre[];
+  videos?: { results: TMDbVideo[] };
+  credits?: TMDbCredits;
+}
+
+export type TMDbDetails = TMDbMovieDetails | TMDbTVDetails;

@@ -20,7 +20,6 @@ export default function TrailerScreen() {
         <YoutubePlayer height={250} play={true} videoId={videoId} />
       </View>
 
-      {/* Details */}
       <ScrollView className="flex-1 p-5 px-4">
         <Text className="text-2xl font-bold text-white">{title}</Text>
 

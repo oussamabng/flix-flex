@@ -36,7 +36,7 @@ export const Header = ({ onSearch }: HeaderProps) => {
         style: 'destructive',
         onPress: async () => {
           signOut();
-          router.replace('/(auth)/signin'); // redirect to signin page
+          router.replace('/(auth)/signin');
         },
       },
     ]);

@@ -7,7 +7,6 @@ import { MediaCard } from '@/components/media-card';
 import { useTMDb } from '@/hooks/use-tmdb';
 import { useTMDbSearch } from '@/hooks/use-tmdb-search';
 import { MediaItem } from '@/types/media';
-import { Stack } from 'expo-router';
 
 interface MediaListScreenProps {
   mediaType: 'movie' | 'tv';
@@ -92,7 +91,6 @@ export function MediaListScreen({ mediaType, topTitle, allTitle }: MediaListScre
         contentContainerStyle={{ paddingBottom: 80 }}
       />
 
-      {/* Error state */}
       {activeError && (
         <View className="p-4">
           <Text className="text-red-500">{activeError}</Text>

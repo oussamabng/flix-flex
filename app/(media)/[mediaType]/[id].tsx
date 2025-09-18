@@ -45,9 +45,9 @@ export default function MediaDetails() {
   }
 
   const poster = data.poster_path ? `https://image.tmdb.org/t/p/w500${data.poster_path}` : null;
-  const title = mediaType === 'tv' ? data.name : data.title;
-  const releaseDate = mediaType === 'tv' ? data.first_air_date : data.release_date;
-  const runtime = mediaType === 'tv' ? data.episode_run_time?.[0] : data.runtime;
+  const title = data.media_type === 'tv' ? data.name : data.title;
+  const releaseDate = data.media_type === 'tv' ? data.first_air_date : data.release_date;
+  const runtime = data.media_type === 'tv' ? data.episode_run_time?.[0] : data.runtime;
 
   const trailer = data.videos?.results?.find(
     (v: any) => v.type === 'Trailer' && v.site === 'YouTube'
@@ -66,11 +66,9 @@ export default function MediaDetails() {
           )}
         </View>
 
-        {/* Details */}
         <View className="mt-4 rounded-t-3xl bg-background px-5 pt-6">
           <Text className="text-2xl font-bold text-white">{title}</Text>
 
-          {/* ⭐ Rating */}
           <View className="mt-2 flex-row items-center gap-5">
             <Text className="font-semibold text-yellow-400">
               ⭐ {(data.vote_average / 2).toFixed(1)}
@@ -79,7 +77,6 @@ export default function MediaDetails() {
             {runtime && <Text className="text-gray-400">{formatRuntime(runtime)}</Text>}
           </View>
 
-          {/* Genres */}
           <View className="mt-4 flex-row flex-wrap gap-2">
             {data.genres?.map((g: any) => (
               <View key={g.id} className="rounded-full border border-gray-600 px-3 py-1">
@@ -88,28 +85,25 @@ export default function MediaDetails() {
             ))}
           </View>
 
-          {/* Overview */}
           <Text className="mt-6 text-base leading-6 text-gray-300">{data.overview}</Text>
 
-          {/* Tagline */}
           {data.tagline ? (
             <Text className="mt-4 italic text-gray-400">“{data.tagline}”</Text>
           ) : null}
 
-          {/* Extra Info */}
           <View className="mt-6 space-y-2">
             {data.status && (
               <Text className="text-gray-300">
                 <Text className="font-semibold text-white">Status:</Text> {data.status}
               </Text>
             )}
-            {mediaType === 'movie' && data.budget > 0 && (
+            {data.media_type === 'movie' && data.budget && (
               <Text className="text-gray-300">
                 <Text className="font-semibold text-white">Budget:</Text> $
                 {data.budget.toLocaleString()}
               </Text>
             )}
-            {mediaType === 'movie' && data.revenue > 0 && (
+            {data.media_type === 'movie' && data.revenue && (
               <Text className="text-gray-300">
                 <Text className="font-semibold text-white">Revenue:</Text> $
                 {data.revenue.toLocaleString()}
@@ -123,7 +117,6 @@ export default function MediaDetails() {
             )}
           </View>
 
-          {/* Production Companies */}
           {data.production_companies?.length > 0 && (
             <View className="mt-6">
               <Text className="mb-2 text-lg font-semibold text-white">Production</Text>
@@ -135,12 +128,11 @@ export default function MediaDetails() {
             </View>
           )}
 
-          {/* Cast (from credits) */}
-          {data.credits?.cast?.length > 0 && (
+          {data.credits && data.credits.cast.length > 0 && (
             <View className="mt-6">
               <Text className="mb-2 text-lg font-semibold text-white">Top Cast</Text>
               <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                {data.credits.cast.slice(0, 10).map((actor: any) => (
+                {data.credits?.cast.slice(0, 10).map((actor: any) => (
                   <View key={actor.id} className="mr-4 w-24 items-center">
                     <Image
                       source={{
@@ -159,7 +151,6 @@ export default function MediaDetails() {
             </View>
           )}
 
-          {/* Watch Trailer Button */}
           {trailer && (
             <TouchableOpacity
               onPress={() =>
